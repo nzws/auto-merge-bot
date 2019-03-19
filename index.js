@@ -11,6 +11,7 @@ module.exports = app => {
 
     const repo = context.repo();
     const name = repo.owner + "/" + repo.repo + "#" + context.payload.pull_request.number;
+
     const timeStamp = Math.floor((new Date()).getTime() / 1000);
     if (cooltime[name] && timeStamp - cooltime[name] < 5) {
       cooltime[name] = timeStamp;
@@ -27,6 +28,10 @@ module.exports = app => {
 
     // find the config
     const config = await getConfig(context, 'auto-merge-bot.config.yml');
+    if (!config) {
+      app.log('[CONFIG IS NOT FOUND]', name);
+      return;
+    }
     let isExist = false;
     config.labels.forEach(label => {
       if (Array.isArray(label)) {
