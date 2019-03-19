@@ -1,0 +1,7 @@
+labels:
+  - auto_merge_force
+  -
+    - auto_merge
+    - minor
+
+# 'auto_merge_force' OR ('auto_merge' AND 'minor')
