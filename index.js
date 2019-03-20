@@ -55,7 +55,8 @@ module.exports = app => {
 
     // Merge it
     return await context.github.pullRequests.merge(context.repo({
-      number: context.payload.pull_request.number
+      number: context.payload.pull_request.number,
+      merge_method: config.merge_type ? config.merge_type : 'merge'
     }));
   });
 };

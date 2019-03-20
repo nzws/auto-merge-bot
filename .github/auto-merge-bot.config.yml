@@ -1,3 +1,4 @@
+merge_type: squash # merge, squash, rebase (default is merge)
 labels:
   - auto_merge_force
   -
