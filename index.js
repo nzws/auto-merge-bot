@@ -32,6 +32,7 @@ module.exports = app => {
       app.log('[CONFIG IS NOT FOUND]', name);
       return;
     }
+    app.log(config.delete_branch === "delete");
     let isExist = false;
     config.labels.forEach(label => {
       if (Array.isArray(label)) {
@@ -54,9 +55,16 @@ module.exports = app => {
     const review = await context.github.pullRequests.createReview(reviewData);
 
     // Merge it
-    return await context.github.pullRequests.merge(context.repo({
+    const merge = await context.github.pullRequests.merge(context.repo({
       number: context.payload.pull_request.number,
       merge_method: config.merge_type ? config.merge_type : 'merge'
+    }));
+
+    // Delete the branch
+    if (!config.delete_branch || config.delete_branch !== "delete") return;
+
+    return await context.github.gitdata.deleteRef(context.repo({
+      ref: "heads/" + context.payload.pull_request.head.ref
     }));
   });
 };

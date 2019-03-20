@@ -1,4 +1,5 @@
 merge_type: squash # merge, squash, rebase (default is merge)
+delete_branch: delete
 labels:
   - auto_merge_force
   -
