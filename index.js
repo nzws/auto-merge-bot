@@ -5,8 +5,7 @@ module.exports = app => {
   app.on('pull_request.labeled', async context => {
     if (
       context.payload.pull_request.draft ||
-      context.payload.pull_request.merged ||
-      !context.payload.pull_request.mergeable
+      context.payload.pull_request.merged
     ) return;
 
     const repo = context.repo();
