@@ -50,7 +50,7 @@
     ]
   },
   "nodemonConfig": {
-    "exec": "npm start",
+    "exec": "yarn start",
     "watch": [
       ".env",
       "."

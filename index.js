@@ -22,10 +22,7 @@ module.exports = app => {
     cooltime[name] = timeStamp;
 
     // check all labels
-    const labels = [];
-    context.payload.pull_request.labels.forEach(label => {
-      labels.push(label.name);
-    });
+    const labels = context.payload.pull_request.labels.map(label => label.name);
 
     // find the config
     const config = await getConfig(context, 'auto-merge-bot.config.yml');
@@ -49,16 +46,16 @@ module.exports = app => {
 
     // Approve the pull request
     const reviewData = context.repo({
-      number: context.payload.pull_request.number,
+      pull_number: context.payload.pull_request.number,
       body: '*This review was created by auto-merge bot.*',
       event: 'APPROVE'
     });
-    await context.github.pullRequests.createReview(reviewData);
+    await context.github.pulls.createReview(reviewData);
 
     // Merge it
-    await context.github.pullRequests.merge(
+    await context.github.pulls.merge(
       context.repo({
-        number: context.payload.pull_request.number,
+        pull_number: context.payload.pull_request.number,
         merge_method: config.merge_type ? config.merge_type : 'merge'
       })
     );
@@ -66,7 +63,7 @@ module.exports = app => {
     // Delete the branch
     if (!config.delete_branch || config.delete_branch !== 'delete') return;
 
-    return await context.github.gitdata.deleteRef(
+    return await context.github.git.deleteRef(
       context.repo({
         ref: 'heads/' + context.payload.pull_request.head.ref
       })
