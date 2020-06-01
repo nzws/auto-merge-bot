@@ -1,17 +1,21 @@
 # auto-merge-bot
 
-> ラベルが貼られたPRを自動レビュー&マージするBotです。
+> ラベルが貼られた PR を自動レビュー&マージする Bot です。
 
 # 使用例
-masterブランチを保護してるけどDependabot等は自動マージしたい...！という時とかに使用できます。
+
+master ブランチを保護してるけど Dependabot 等は自動マージしたい...！という時とかに使用できます。
 
 # 使い方
 
-#### Botをインストール
-https://github.com/apps/auto-merge-bot から、Botをインストールしてください。後述のconfigファイルが存在しないと動作しないため、ユーザ全体にインストールしてしまっても構いません。
+#### Bot をインストール
 
-#### リポジトリにconfigを追加
+https://github.com/apps/auto-merge-bot から、Bot をインストールしてください。後述の config ファイルが存在しないと動作しないため、ユーザ全体にインストールしてしまっても構いません。
+
+#### リポジトリに config を追加
+
 `.github/auto-merge-bot.config.yml` に、次の項目を記入してデフォルトブランチに入れてください。
+
 ```yaml
 labels:
   - auto_merge_force
@@ -26,4 +30,4 @@ delete_branch: delete # マージ後にブランチを削除するかどうか (
 
 ## License
 
-[Apache-2.0](LICENSE) © 2019 nzws <github@nzws.me> (https://github.com/yuzulabo/auto-merge-bot)
+[Apache-2.0](LICENSE) © 2020 nzws <github@nzws.me> (https://github.com/nzws/auto-merge-bot)

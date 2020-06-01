@@ -2,11 +2,11 @@
   "name": "auto-merge-bot",
   "version": "1.0.0",
   "description": " Pull Request will auto-merge if have [auto-merge] label",
-  "author": "nzws <github@nzws.me> (https://github.com/yuzulabo/auto-merge-bot)",
+  "author": "nzws <github@nzws.me> (https://github.com/nzws/auto-merge-bot)",
   "license": "Apache-2.0",
-  "repository": "https://github.com//auto-merge-bot.git",
-  "homepage": "https://github.com//auto-merge-bot",
-  "bugs": "https://github.com//auto-merge-bot/issues",
+  "repository": "https://github.com/nzws/auto-merge-bot.git",
+  "homepage": "https://github.com/nzws/auto-merge-bot",
+  "bugs": "https://github.com/nzws/auto-merge-bot/issues",
   "keywords": [
     "probot",
     "github",
@@ -15,17 +15,31 @@
   "scripts": {
     "dev": "nodemon",
     "start": "probot run ./index.js",
-    "lint": "standard --fix"
+    "lint:prettier": "prettier --check --ignore-path .gitignore .",
+    "lint:eslint": "eslint --cache --ignore-path .gitignore \"**/*.js\"",
+    "lint": "npm-run-all lint:* -s",
+    "format:prettier": "prettier --write --ignore-path .gitignore .",
+    "format:js": "eslint --cache --fix --ignore-path .gitignore \"**/*.js\"",
+    "format": "npm-run-all format:* -s"
   },
+  "prettier": "@nzws/prettier-config",
   "dependencies": {
-    "probot": "^7.2.0",
-    "probot-config": "^1.0.1"
+    "probot": "^9.11.4",
+    "probot-config": "^1.1.0"
   },
   "devDependencies": {
-    "nock": "^10.0.0",
-    "nodemon": "^1.17.2",
-    "smee-client": "^1.0.2",
-    "standard": "^12.0.1"
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@nzws/prettier-config": "^1.0.0",
+    "@yuzulabo/eslint-config": "^1.0.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.1.0",
+    "nock": "^12.0.3",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.5",
+    "smee-client": "^1.1.0",
+    "standard": "^14.3.4"
   },
   "engines": {
     "node": ">= 8.3.0"
