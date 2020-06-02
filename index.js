@@ -25,13 +25,6 @@ module.exports = app => {
         '#' +
         context.payload.pull_request.number;
 
-      const timeStamp = Math.floor(new Date().getTime() / 1000);
-      cooltime[name] = timeStamp;
-      if (cooltime[name] && timeStamp - cooltime[name] < 10) {
-        app.log('[COOL TIME]', name);
-        return;
-      }
-
       // check all labels
       const labels = context.payload.pull_request.labels.map(
         label => label.name
@@ -69,6 +62,14 @@ module.exports = app => {
 
         return;
       }
+
+      const timeStamp = Math.floor(new Date().getTime() / 1000);
+      if (cooltime[name] && timeStamp - cooltime[name] < 10) {
+        cooltime[name] = timeStamp;
+        app.log('[COOL TIME]', name);
+        return;
+      }
+      cooltime[name] = timeStamp;
 
       // Approve the pull request
       const reviewData = context.repo({
