@@ -24,7 +24,7 @@
   },
   "prettier": "@nzws/prettier-config",
   "dependencies": {
-    "probot": "^9.11.4",
+    "probot": "^12.1.0",
     "probot-config": "^1.1.0"
   },
   "devDependencies": {
